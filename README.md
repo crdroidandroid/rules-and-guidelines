@@ -29,7 +29,7 @@ Following crDroid 8.0 release all rules are enforced.
 
 ### Git:
 * Git trees should be maintained in a tidy and organized manner
-* Original commit autorhip must be maintained. If you modified it by some degree (forward port, conflict fix) you can leave a signoff or add your note at the end of a commit message, e.g. *'xNombre: fixed for R'*
+* Original commit authorship must be maintained. If you modified it by some degree (forward port, conflict fix) you can leave a signoff or add your note at the end of a commit message, e.g. *'xNombre: fixed for R'*
 Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add missing camera prop'* no *'fix cam'* or *'aldksjflkajsd'*. For kernels shortened path or affected source file must be used for name, e.g. *'block: cfq: Fix uninitialized variable'* or *'adsprpcd: Fix memory leak'*
 * Commits must describe the change, especially reverts. Commits without proper messages are meaningless, showing that you have no actual idea what you’re doing. Reverts without a message doesn’t let others know what problem it was causing and it is generally bad for community
 * Rebasing and force-pushing is allowed as long as it doesn’t affect other users badly, e.g. don’t force-push main branch of a common dt repository until consulted with all maintainers using it
@@ -70,7 +70,7 @@ Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add m
 * Must be built with stack protector strong
 * Must be built with selinux and seccomp enabled, audit can be disabled
 * Kernels can implement blockers for system tweaks like *L Speed*, *LKT* etc, however, must not implement blockers for any of user apps, like *PUBG*
-* Kernels should be built using latest clang (which is set as a default kernel toolchain in crDroid) except in the case if there are issues with it
+* Kernels should be built using latest clang (which is set as a default kernel toolchain in crDroid) except in the case there are issues with it
 * You must not use any commit that masks disabled selinux or any other security-related feature; cmdline patches for passing Safetynet are allowed (however deprecated in 12.0)
 
 #### Vendor
@@ -82,10 +82,12 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 * Selinux can be permissive during initial bringup days, only in beta builds. It must be enforced in every official release
 * Sepolicy must meet security standards, it must cover every system and vendor component (no random denials), however it must not contain any rules for 3rd party apps
 * Official builds must not be released with gapps unless it is impossible to flash them without bootloop
+* If released with Gapps, you mush include our gapps version found at our [GitLab](https://gitlab.com/crdroidandroid/android_vendor_gapps)
 * Official builds must not contain any additional apps included by the maintainer, except from apps extracted from stock rom and *GCam*
 
 ---
 ### Version history:
 * **1.0** - first release
 * **1.1** - reviewed and adapted some rules
+* **1.2** - further clarifications
 
