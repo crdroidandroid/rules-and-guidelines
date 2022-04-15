@@ -10,8 +10,8 @@ Following crDroid 8.0 release all rules are enforced.
 
 ### General rules
 * All maintainers must have knowledge about source control tools such as *git* and *repo*.
-* All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree if present, device tree, vendor and kernel
-* In the case of incompatibilities with current already hosted device sources, maintainers will need to create a dedicated branch for their devices on said repos
+* All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree (if present), device tree, vendor and kernel
+* All sources must be fully synced (pushed to GitHub) **prior to** every official build release
 * Device trees can be co-maintained
 * All maintainers must test every build before release this including with testers if possible in order to avoid issues
 * If some quality requirements (*more on that below*) can’t be passed, the maintainer must provide the reason for the exception while applying for maintainer status
@@ -29,6 +29,9 @@ Following crDroid 8.0 release all rules are enforced.
 
 ### Git:
 * Git trees should be maintained in a tidy and organized manner
+* Release branches (ones that are used for official releases) must be named after current Android version, e.g. Android 12L -branch_name-> 12.1, this naming is mandatory (excluding cases described at the next point)
+* In the case of incompatibility with current, already hosted device sources, maintainers will need to create a dedicated branch for their device on said repos (eg. *12.1-cepheus*)
+* Maintainers are free to create additional backup/testing branches
 * Original commit authorship must be maintained. If you modified it by some degree (forward port, conflict fix) you can leave a signoff or add your note at the end of a commit message, e.g. *'xNombre: fixed for R'*
 Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add missing camera prop'* no *'fix cam'* or *'aldksjflkajsd'*. For kernels shortened path or affected source file must be used for name, e.g. *'block: cfq: Fix uninitialized variable'* or *'adsprpcd: Fix memory leak'*
 * Commits must describe the change, especially reverts. Commits without proper messages are meaningless, showing that you have no actual idea what you’re doing. Reverts without a message doesn’t let others know what problem it was causing and it is generally bad for community
@@ -62,7 +65,7 @@ Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add m
     * Must be operational and support same range of satellite types as stock
 * **Storage**
     * Every storage memory must be working, internal and external (like sd cards)
-    * Devices must support encryption. FDE devices should switch to FBE if possible, FBE encryption must be enabled by default
+    * Devices must support encryption. FDE devices should switch to FBE, FBE encryption must be enabled by default
     * Devices should be able to use latest encryption method following Google recommendations, metadata partition should be used when available
 
 #### Kernel:
@@ -81,8 +84,10 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 * Official builds can be released as weekly, monthly or nightlies when needed but at least they must be released on every crDroid minor version update
 * Selinux can be permissive during initial bringup days, only in beta builds. It must be enforced in every official release
 * Sepolicy must meet security standards, it must cover every system and vendor component (no random denials), however it must not contain any rules for 3rd party apps
+* Neverallows MUST NOT be masked using *SELINUX_IGNORE_NEVERALLOWS*
+* Maintainers must not disable any permissions related checks, particularly alter *ro.control_privapp_permissions*
 * Official builds must not be released with gapps unless it is impossible to flash them without bootloop
-* If released with Gapps, you mush include our gapps version found at our [GitLab](https://gitlab.com/crdroidandroid/android_vendor_gapps)
+* If releasing with gapps, the very basic package must be included; any additional packages that are not necessary for basic functionality are not allowed
 * Official builds must not contain any additional apps included by the maintainer, except from apps extracted from stock rom and *GCam*
 
 ---
@@ -90,4 +95,5 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 * **1.0** - first release
 * **1.1** - reviewed and adapted some rules
 * **1.2** - further clarifications
+* **1.3** - Security hardening, clarify sources maintaining, drop our gapps
 
