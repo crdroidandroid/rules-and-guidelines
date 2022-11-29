@@ -48,7 +48,7 @@ Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add m
     * Must be operational if it is available in stock rom, it must not crash in any case
     * Devices should support call recording
 * **Camera**
-    * Default’s system app - Snap must be working, however can be overridden. Prebuilt camera apps extracted from stock (like *AnxCamera*) can be included only if it is fully functional and doesn’t crash randomly
+    * Default’s system app - Aperture must be working, however can be overridden. Prebuilt camera apps extracted from stock (like *AnxCamera*) can be included only if it is fully functional and doesn’t crash randomly
 * **USB**
      * All usb features such as MTP, PTP, ADB, tethering must be working
 * **Bluetooth**
