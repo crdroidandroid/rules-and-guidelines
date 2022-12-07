@@ -5,12 +5,10 @@ This repository contains quality requirements for every device maintainer.
 Rules are established by crDroid core team to meet same standards on every
 device, keep users' data safe and enhance their experience.
 
-Following crDroid 8.0 release all rules are enforced.
-
-
 ### General rules
 * All maintainers must have knowledge about source control tools such as *git* and *repo*.
-* All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree (if present), device tree, vendor and kernel
+* All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree (if present), device tree and kernel
+* Vendor is not mandatory due to possible proprietary code that can result in DMCA, but highly recommended also
 * All sources must be fully synced (pushed to GitHub) **prior to** every official build release
 * Device trees can be co-maintained
 * All maintainers must test every build before release this including with testers if possible in order to avoid issues
@@ -23,8 +21,8 @@ Following crDroid 8.0 release all rules are enforced.
 * PMs should be avoided as much as possible so all users can participate in a discussion
 * Mentions shouldn’t be misused nor notifying too many (possibly unrelated) people, when mentioning try to describe the problem as much as possible, avoid mentions that forces the person to read the whole conversation (e.g. *‘@devnick Can you help???’* in the middle of 20 messages long conversation, instead use *‘@devnick I get an error x when compiling y after adding z, do you have any idea about it?’*) 
 * Don’t spam about any ETAs, upcoming source updates or features to add
-* We encourage features to be added via pull request so we can review code and decide to implement 
-* Specific bugs should be reported via Github *Issue* section in the affected repository
+* We encourage features to be added via pull request, so we can review code and decide to implement 
+* Specific bugs should be reported via Github *Issue* section in the affected repository or via [issue_tracker](https://github.com/crdroidandroid/issue_tracker/issues/new/choose}
 * Feature requests should be made using *Pull Requests* with a properly prepared and **tested** commits
 
 ### Git:
@@ -73,8 +71,7 @@ Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add m
 * Must be built with stack protector strong
 * Must be built with selinux and seccomp enabled, audit can be disabled
 * Kernels can implement blockers for system tweaks like *L Speed*, *LKT* etc, however, must not implement blockers for any of user apps, like *PUBG*
-* Kernels should be built using latest clang (which is set as a default kernel toolchain in crDroid) except in the case there are issues with it
-* You must not use any commit that masks disabled selinux or any other security-related feature; cmdline patches for passing Safetynet are allowed (however deprecated in 12.0)
+* You must not use any commit that masks disabled selinux or any other security-related feature; cmdline patches for passing Safetynet are allowed (however deprecated in 12.0 and up)
 
 #### Vendor
 Maintainers are free to use stock-extracted blobs, blobs from other devices or leaked BSPs. However, maintainers must test them after any alteration and make sure new blobs are fully operational. They must check logcat and dmesg for any unusual output (like dlsym errors).
@@ -82,7 +79,7 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 #### Software:
 * Only production builds can be shipped (user/userdebug)
 * Official builds can be released as weekly, monthly or nightlies when needed but at least they must be released on every crDroid minor version update
-* Selinux can be permissive during initial bringup days, only in beta builds. It must be enforced in every official release
+* Selinux can be permissive during initial bringup days, only in beta builds. It must be enforced in every official release after non-dt related source is deemed stable
 * Sepolicy must meet security standards, it must cover every system and vendor component (no random denials), however it must not contain any rules for 3rd party apps
 * Neverallows MUST NOT be masked using *SELINUX_IGNORE_NEVERALLOWS*
 * Maintainers must not disable any permissions related checks, particularly alter *ro.control_privapp_permissions*
@@ -92,8 +89,8 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 
 ---
 ### Version history:
-* **1.0** - first release
-* **1.1** - reviewed and adapted some rules
-* **1.2** - further clarifications
+* **1.0** - First release
+* **1.1** - Reviewed and adapted some rules
+* **1.2** - Further clarifications
 * **1.3** - Security hardening, clarify sources maintaining, drop our gapps
-
+* **1.4** - Clearning vendor inclusion and more clarification
