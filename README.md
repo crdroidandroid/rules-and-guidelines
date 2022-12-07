@@ -22,7 +22,7 @@ device, keep users' data safe and enhance their experience.
 * Mentions shouldn’t be misused nor notifying too many (possibly unrelated) people, when mentioning try to describe the problem as much as possible, avoid mentions that forces the person to read the whole conversation (e.g. *‘@devnick Can you help???’* in the middle of 20 messages long conversation, instead use *‘@devnick I get an error x when compiling y after adding z, do you have any idea about it?’*) 
 * Don’t spam about any ETAs, upcoming source updates or features to add
 * We encourage features to be added via pull request, so we can review code and decide to implement 
-* Specific bugs should be reported via Github *Issue* section in the affected repository or via [issue_tracker](https://github.com/crdroidandroid/issue_tracker/issues/new/choose}
+* Specific bugs should be reported via Github *Issue* section in the affected repository or via [issue_tracker](https://github.com/crdroidandroid/issue_tracker/issues/new/choose)
 * Feature requests should be made using *Pull Requests* with a properly prepared and **tested** commits
 
 ### Git:
