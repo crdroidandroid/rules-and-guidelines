@@ -8,6 +8,7 @@ device, keep users' data safe and enhance their experience.
 ### General rules
 * All maintainers must have knowledge about source control tools such as *git* and *repo*.
 * All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree (if present), device tree and kernel
+* Device tree and device specifc sources need to be cloned via crdroid.dependencies and not via vendorsetup.sh script at built time (that if you want to clone stuff at build time)
 * Vendor is not mandatory due to possible proprietary code that can result in DMCA, but highly recommended also
 * All sources must be fully synced (pushed to GitHub) **prior to** every official build release
 * Device trees can be co-maintained
@@ -94,3 +95,4 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 * **1.2** - Further clarifications
 * **1.3** - Security hardening, clarify sources maintaining, drop our gapps
 * **1.4** - Clearning vendor inclusion and more clarification
+* **1.5** - Define rule for vendorsetup.sh clone
