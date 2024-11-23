@@ -16,6 +16,7 @@ device, keep users' data safe and enhance their experience.
 * If some quality requirements (*more on that below*) can’t be passed, the maintainer must provide the reason for the exception while applying for maintainer status
 * Maintainers must respect each other, any act of hate or abuse will be severely punished
 * A forum thread (usually XDA) must be made using official template and contain all the device documentation such as installation steps, download links, sources
+* Starting with crDroid 11, is manadatory to have install instructions added to [install_docs](https://github.com/crdroidandroid/install_docs) repo.
 
 ### Communication and chat rules
 * The team communicates using Telegram group chat that you'll get an invite to when applying 
@@ -96,3 +97,4 @@ Maintainers are free to use stock-extracted blobs, blobs from other devices or l
 * **1.3** - Security hardening, clarify sources maintaining, drop our gapps
 * **1.4** - Clearning vendor inclusion and more clarification
 * **1.5** - Define rule for vendorsetup.sh clone
+* **1.6** - Add install instructions
