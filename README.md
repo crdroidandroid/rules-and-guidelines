@@ -1,100 +1,171 @@
+# crDroid Android Official Requirements
 
-# crDroidAndroid Official Requirements
----
-This repository contains quality requirements for every device maintainer.
-Rules are established by crDroid core team to meet same standards on every
-device, keep users' data safe and enhance their experience.
-
-### General rules
-* All maintainers must have knowledge about source control tools such as *git* and *repo*.
-* All maintainers must release device sources **publicly** at crDroid Android organization on Github, here includes common device tree (if present), device tree and kernel
-* Device tree and device specifc sources need to be cloned via crdroid.dependencies and not via vendorsetup.sh script at built time (that if you want to clone stuff at build time)
-* Vendor is not mandatory due to possible proprietary code that can result in DMCA, but highly recommended also
-* All sources must be fully synced (pushed to GitHub) **prior to** every official build release
-* Device trees can be co-maintained
-* All maintainers must test every build before release this including with testers if possible in order to avoid issues
-* If some quality requirements (*more on that below*) can’t be passed, the maintainer must provide the reason for the exception while applying for maintainer status
-* Maintainers must respect each other, any act of hate or abuse will be severely punished
-* A forum thread (usually XDA) must be made using official template and contain all the device documentation such as installation steps, download links, sources
-* Starting with crDroid 11, is manadatory to have install instructions added to [install_docs](https://github.com/crdroidandroid/install_docs) repo.
-
-### Communication and chat rules
-* The team communicates using Telegram group chat that you'll get an invite to when applying 
-* PMs should be avoided as much as possible so all users can participate in a discussion
-* Mentions shouldn’t be misused nor notifying too many (possibly unrelated) people, when mentioning try to describe the problem as much as possible, avoid mentions that forces the person to read the whole conversation (e.g. *‘@devnick Can you help???’* in the middle of 20 messages long conversation, instead use *‘@devnick I get an error x when compiling y after adding z, do you have any idea about it?’*) 
-* Don’t spam about any ETAs, upcoming source updates or features to add
-* We encourage features to be added via pull request, so we can review code and decide to implement 
-* Specific bugs should be reported via Github *Issue* section in the affected repository or via [issue_tracker](https://github.com/crdroidandroid/issue_tracker/issues/new/choose)
-* Feature requests should be made using *Pull Requests* with a properly prepared and **tested** commits
-
-### Git:
-* Git trees should be maintained in a tidy and organized manner
-* Release branches (ones that are used for official releases) must be named after current Android version, e.g. Android 12L -branch_name-> 12.1, this naming is mandatory (excluding cases described at the next point)
-* In the case of incompatibility with current, already hosted device sources, maintainers will need to create a dedicated branch for their device on said repos (eg. *12.1-cepheus*)
-* Maintainers are free to create additional backup/testing branches
-* Original commit authorship must be maintained. If you modified it by some degree (forward port, conflict fix) you can leave a signoff or add your note at the end of a commit message, e.g. *'xNombre: fixed for R'*
-Commits must preserve proper and informative naming, e.g. *'sm6150-common: Add missing camera prop'* no *'fix cam'* or *'aldksjflkajsd'*. For kernels shortened path or affected source file must be used for name, e.g. *'block: cfq: Fix uninitialized variable'* or *'adsprpcd: Fix memory leak'*
-* Commits must describe the change, especially reverts. Commits without proper messages are meaningless, showing that you have no actual idea what you’re doing. Reverts without a message doesn’t let others know what problem it was causing and it is generally bad for community
-* Rebasing and force-pushing is allowed as long as it doesn’t affect other users badly, e.g. don’t force-push main branch of a common dt repository until consulted with all maintainers using it
-* When force-pushing a branch it is advised to create a copy of it just in case, named *'mybranch-old'* or *'mybranch-today's date'*
+This repository defines the quality and maintenance requirements for all official crDroid device maintainers.
+These rules are set by the crDroid core team to ensure consistent standards across all devices, protect user data and deliver a stable user experience.
 
 ---
-### Builds quality requirements
 
-#### Hardware:
-* **Audio**
-    * All audio outputs that are available in stock rom must be operational
-* **RIL**
-    * Must be operational if it is available in stock rom, it must not crash in any case
-    * Devices should support call recording
-* **Camera**
-    * Default’s system app - Aperture must be working, however can be overridden. Prebuilt camera apps extracted from stock (like *AnxCamera*) can be included only if it is fully functional and doesn’t crash randomly
-* **USB**
-     * All usb features such as MTP, PTP, ADB, tethering must be working
-* **Bluetooth**
-    * Must be fully operational
-    * Maintainers can switch to A2DP stack if their hardware supports it
-* **Wifi**
-    *  5GHz must be working if it’s available in stock rom
-    * Wifi hotspot must be working and should support 5GHz
-* **Fingerprint Sensor**
-    * Must be operational if included
-* **Sensors**
-    * All basic sensors must be working
-* **GPS**
-    * Must be operational and support same range of satellite types as stock
-* **Storage**
-    * Every storage memory must be working, internal and external (like sd cards)
-    * Devices must support encryption. FDE devices should switch to FBE, FBE encryption must be enabled by default
-    * Devices should be able to use latest encryption method following Google recommendations, metadata partition should be used when available
+## General rules
 
-#### Kernel:
-* Builtin kernel must not modify default hardware configuration, which is altering cpu/gpu/mem/etc frequency/voltage because of stability reasons
-* Must be built with stack protector strong
-* Must be built with selinux and seccomp enabled, audit can be disabled
-* Kernels can implement blockers for system tweaks like *L Speed*, *LKT* etc, however, must not implement blockers for any of user apps, like *PUBG*
-* You must not use any commit that masks disabled selinux or any other security-related feature; cmdline patches for passing Safetynet are allowed (however deprecated in 12.0 and up)
+* Maintainers must be proficient with source control tools such as **git** and **repo**.
+* All device-related sources must be published publicly under the crDroid Android GitHub organization, including:
 
-#### Vendor
-Maintainers are free to use stock-extracted blobs, blobs from other devices or leaked BSPs. However, maintainers must test them after any alteration and make sure new blobs are fully operational. They must check logcat and dmesg for any unusual output (like dlsym errors).
+  * Common device trees (if applicable)
+  * Device trees
+  * Kernel sources
+* Providing a vendor repository is not mandatory due to potential proprietary or DMCA-related issues, but it is strongly recommended.
+* Device trees and device-specific sources must be cloned via `crdroid.dependencies`. Any source alteration or cloning through `vendorsetup.sh` or other scripts is not allowed.
+* All sources must be fully synced and pushed to GitHub before every official build release.
+* Device trees may be co-maintained, but only in the case when maintainers already part of crDroid.
+* Maintainers must test every build before release, preferably with external testers, to minimize user-facing issues.
+* If any quality requirement (see below) cannot be met, the maintainer must clearly justify the exception when applying for maintainer status.
+* An official forum thread (usually XDA) must be created using the official template and must include:
 
-#### Software:
-* Only production builds can be shipped (user/userdebug)
-* Official builds can be released as weekly, monthly or nightlies when needed but at least they must be released on every crDroid minor version update
-* Selinux can be permissive during initial bringup days, only in beta builds. It must be enforced in every official release after non-dt related source is deemed stable
-* Sepolicy must meet security standards, it must cover every system and vendor component (no random denials), however it must not contain any rules for 3rd party apps
-* Neverallows MUST NOT be masked using *SELINUX_IGNORE_NEVERALLOWS*
-* Maintainers must not disable any permissions related checks, particularly alter *ro.control_privapp_permissions*
-* Official builds must not be released with gapps unless it is impossible to flash them without bootloop
-* If releasing with gapps, the very basic package must be included; any additional packages that are not necessary for basic functionality are not allowed
-* Official builds must not contain any additional apps included by the maintainer, except from apps extracted from stock rom and *GCam*
+  * Installation instructions
+  * Download links
+  * Source links
+  * Device documentation
+* Installation instructions must be added to the [install_docs](https://github.com/crdroidandroid/install_docs) repository.
 
 ---
-### Version history:
-* **1.0** - First release
-* **1.1** - Reviewed and adapted some rules
-* **1.2** - Further clarifications
-* **1.3** - Security hardening, clarify sources maintaining, drop our gapps
-* **1.4** - Clearning vendor inclusion and more clarification
-* **1.5** - Define rule for vendorsetup.sh clone
-* **1.6** - Add install instructions
+
+## Communication & code improvements
+
+* Official communication takes place in the Telegram group, to which maintainers are invited upon acceptance.
+* New features should be proposed via Pull Requests with clean commits for proper review.
+
+---
+
+## Git Rules
+
+* Repositories must be kept clean, organized, and readable.
+* Release branches must be named after the Android version, for example:
+
+  * Android 16 → `16.0`
+  * This naming is mandatory, except in the case below.
+* If existing hosted sources are incompatible, maintainers must create device-specific branches, e.g.:
+
+  * `16.0-guacamole`
+* Additional branches for testing or backup are allowed.
+* Original commit authorship must be preserved.
+* Commit messages must be descriptive and meaningful:
+* Commits must clearly explain what and why, especially reverts.
+* Rebasing and force-pushing are allowed only if they do not disrupt other maintainers.
+
+  * Never force-push shared branches without consulting all users.
+* When force-pushing, create a backup branch first, e.g.:
+
+  * `mybranch-old`
+  * `mybranch-YYYYMMDD`
+
+---
+
+## Build Quality Requirements
+
+### Hardware
+
+#### Audio
+
+* All audio outputs available in the stock ROM must work.
+
+#### RIL
+
+* Must be fully operational if present in stock ROM.
+* Must never crash.
+
+#### Camera
+
+* The default camera app (Aperture) must work.
+* Alternative camera apps (e.g. GCam) are allowed only if fully stable.
+
+#### USB
+
+* MTP, PTP, ADB, and USB tethering must work.
+
+#### Bluetooth
+
+* Must be fully functional.
+* A2DP stack may be used if hardware supports it.
+
+#### Wi-Fi
+
+* 5 GHz must work if supported by stock ROM.
+* Wi-Fi hotspot must work and support 5 GHz where applicable.
+
+#### Fingerprint
+
+* Must work if the device includes a fingerprint sensor.
+
+#### Sensors
+
+* All core sensors must be functional.
+
+#### GPS
+
+* Must be operational and support the same satellite systems as stock.
+
+#### Storage & Encryption
+
+* Internal and external storage (e.g. SD cards) must work.
+* Encryption is mandatory.
+
+---
+
+### Kernel
+
+* Kernel must not alter stock hardware parameters (CPU/GPU/memory frequencies or voltages).
+* Must be built with:
+
+  * SELinux enabled
+  * Audit may be disabled
+* Blocking system tweak apps (e.g. *L Speed*, *LKT*) is allowed.
+* Blocking user applications (e.g. games like *PUBG*) is not allowed.
+
+---
+
+### Vendor
+
+* Blobs may come from:
+
+  * Stock ROMs
+  * Other devices
+  * Leaked BSPs
+
+---
+
+### Software
+
+* Only production builds (`user` or `userdebug`) are allowed.
+* Official builds may be:
+
+  * Weekly
+  * Monthly
+  * Nightly
+    but must be released for every crDroid minor version update.
+* SELinux:
+
+  * Permissive allowed only during early bring-up and beta builds.
+  * Must be enforcing for all official releases.
+* Official builds must not include GApps, unless booting without them is impossible.
+* If GApps are included:
+
+  * Only the minimum required package is allowed.
+  * No extra or non-essential apps.
+* No additional apps may be bundled by maintainers, except:
+
+  * Stock ROM apps
+  * GCam
+  * Dolby
+
+---
+
+## Version History
+
+* **1.0** – Initial release
+* **1.1** – Rule review and adjustments
+* **1.2** – Clarifications
+* **1.3** – Security hardening, source maintenance clarification, removed bundled GApps
+* **1.4** – Vendor inclusion cleanup and clarification
+* **1.5** – Defined `vendorsetup.sh` cloning rules
+* **1.6** – Installation instructions requirement
+* **1.7** – Rule review and adjustments
